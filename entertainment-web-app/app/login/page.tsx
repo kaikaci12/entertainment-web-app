@@ -1,6 +1,34 @@
+"use client";
 import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 function Login() {
+  type Inputs = {
+    email: string;
+    password: string;
+  };
+  const schema = yup.object({
+    email: yup
+      .string()
+      .required("Can't be blank")
+      .test("test email regex", "invalid email", (value) => {
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+      }),
+    password: yup.string().required("Can't be blank"),
+  });
+  const {
+    watch,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  console.log(errors);
   return (
     <div className="w-full h-full absolute bg-[#10141E] flex flex-col lg:justify-center  items-center  gap-[58px] px-[24px]">
       <div className="mt-[48px] sm:mt-[88px] lg:mt-0">
@@ -22,30 +50,59 @@ function Login() {
         <h1 className="text-[#FFF] text-[32px] font-normal tracking-[-0.5px]">
           Login
         </h1>
-        <form action="" className="flex flex-col gap-[24px] ">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-[24px] "
+        >
           <label
             htmlFor="email"
             className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
-            <input
-              type="text"
-              id="email"
-              placeholder="Email address "
-              className="bg-transparent text-white outline-none"
-            />
-            <div className="w-full h-[1px] bg-[#5A698F]"></div>
+            <div>
+              <input
+                {...register("email")}
+                type="text"
+                id="email"
+                placeholder="Email address"
+                className="bg-transparent text-white outline-none"
+              />
+              {errors.email && (
+                <span className="text-[13px] font-normal text-[#FC4747] ">
+                  {errors.email.message}
+                </span>
+              )}
+            </div>
+
+            <div
+              className={`w-full h-[2px] ${
+                errors.email ? "bg-[#FC4747] " : "bg-[#5A698F]"
+              } `}
+            ></div>
           </label>
           <label
             htmlFor="password"
             className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
-            <input
-              type="text"
-              id="password"
-              placeholder="Password "
-              className="bg-transparent text-white outline-none"
-            />
-            <div className="w-full h-[1.5px] bg-[#5A698F]"></div>
+            <div>
+              <input
+                {...register("password")}
+                type="text"
+                id="password"
+                placeholder="Password"
+                className="bg-transparent text-white outline-none"
+              />
+              {errors.password && (
+                <span className="text-[13px] font-normal text-[#FC4747] ">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+
+            <div
+              className={`w-full h-[2px] ${
+                errors.password ? "bg-[#FC4747] " : "bg-[#5A698F]"
+              } `}
+            ></div>
           </label>
 
           <button className="text-center text-[15px] text-white font-normal rounded-[6px] bg-[#FC4747] w-full py-[15px]">
@@ -54,7 +111,7 @@ function Login() {
         </form>
         <div className="w-full flex gap-[8px] justify-center">
           <span className="text-[#FFF] text-[15px] font-normal">
-            Don’t have an account?
+            Don't have an account?
           </span>
           <span className=" text-[15px] font-normal text-[#FC4747]">
             Sign Up
