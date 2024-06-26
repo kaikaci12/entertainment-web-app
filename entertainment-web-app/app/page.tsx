@@ -1,8 +1,16 @@
+"use client";
 import Image from "next/image";
+import data from "../data.json";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [movieData, setMovieData] = useState([]);
+
+  const [seriesData, setSeriesData] = useState([]);
+  const trendingData = data.filter((movie) => movie.isTrending);
+
   return (
-    <div className="w-full h-full fixed  bg-[#10141E] sm:p-[25px] lg:py-[32px]">
+    <div className="w-full h-full  absolute lg:gap-[30px] lg:flex  bg-[#10141E] sm:p-[25px] lg:py-[32px] ">
       <header className="sm:h-[72px] w-full h-[56px] bg-[#161D2F] sm:rounded-[10px] lg:rounded-[20px] flex justify-between items-center px-[16px]  lg:h-full  lg:w-[96px] lg:flex-col lg:py-[32px] lg:ju">
         <svg
           className=""
@@ -49,7 +57,39 @@ export default function Home() {
           className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] rounded-full border-2 border-white"
         />
       </header>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+      <main className="p-[16px] flex flex-col gap-[24px]">
+        <div className="flex gap-[24px] mt-[26px] sm:mt-[34px] lg:mt-[45px]">
+          <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M27.613 25.72 23.08 21.2a10.56 10.56 0 0 0 2.253-6.533C25.333 8.776 20.558 4 14.667 4S4 8.776 4 14.667c0 5.89 4.776 10.666 10.667 10.666A10.56 10.56 0 0 0 21.2 23.08l4.52 4.533a1.333 1.333 0 0 0 1.893 0 1.333 1.333 0 0 0 0-1.893ZM6.667 14.667a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z"
+              fill="#FFF"
+            />
+          </svg>
+          <input
+            type="search"
+            className="bg-transparent text-[#FFF] text-[24px] font-normal opacity-50 w-full outline-none"
+            placeholder="Search for movies or TV series"
+          />
+        </div>
+        <h1 className="text-[#FFF] text-[20px] font-normal tracking-[-0.312px]">
+          Trending
+        </h1>
+        <section className="flex  gap-[16px]">
+          {trendingData.map((movie, index) => {
+            return (
+              <div
+                key={index}
+                style={{
+                  backgroundImage: `url(${movie.thumbnail.trending?.large})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                }}
+                className="w-[240px] h-[140px] rounded-[8px]"
+              ></div>
+            );
+          })}
+        </section>
+      </main>
     </div>
   );
 }
