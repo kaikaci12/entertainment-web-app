@@ -1,7 +1,6 @@
 import React from "react";
-import movieIcon from "/assets/icon-category-movie.svg";
-import Image from "next/image";
-function SignUp() {
+
+function Login() {
   return (
     <div className="w-full h-full absolute bg-[#10141E] flex flex-col lg:justify-center  items-center  gap-[58px] px-[24px]">
       <div className="mt-[48px] sm:mt-[88px] lg:mt-0">
@@ -21,7 +20,7 @@ function SignUp() {
       </div>
       <div className=" w-full sm:w-[400px]  rounded-[20px] bg-[var(--Semi-Dark-Blue,_#161D2F)] flex flex-col p-6 gap-10">
         <h1 className="text-[#FFF] text-[32px] font-normal tracking-[-0.5px]">
-          Sign Up
+          Login
         </h1>
         <form action="" className="flex flex-col gap-[24px] ">
           <label
@@ -48,31 +47,22 @@ function SignUp() {
             />
             <div className="w-full h-[1.5px] bg-[#5A698F]"></div>
           </label>
-          <label
-            htmlFor="password"
-            className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
-          >
-            <input
-              type="text"
-              id="password"
-              placeholder="Repeat Password "
-              className="bg-transparent text-white outline-none"
-            />
-            <div className="w-full h-[2px] bg-[#5A698F]"></div>
-          </label>
+
           <button className="text-center text-[15px] text-white font-normal rounded-[6px] bg-[#FC4747] w-full py-[15px]">
-            Create an account
+            Login to your account
           </button>
         </form>
         <div className="w-full flex gap-[8px] justify-center">
           <span className="text-[#FFF] text-[15px] font-normal">
-            Already have an account?
+            Don’t have an account?
           </span>
-          <span className=" text-[15px] font-normal text-[#FC4747]">Login</span>
+          <span className=" text-[15px] font-normal text-[#FC4747]">
+            Sign Up
+          </span>
         </div>
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default Login;
