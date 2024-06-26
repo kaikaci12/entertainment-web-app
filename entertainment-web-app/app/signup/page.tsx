@@ -14,7 +14,12 @@ function SignUp() {
     repeatPassword: string;
   };
   const schema = yup.object({
-    email: yup.string().required("Can't be blank"),
+    email: yup
+      .string()
+      .required("Can't be blank")
+      .test("test email regex", "invalid email", (value) => {
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+      }),
     password: yup.string().required("Can't be blank"),
     repeatPassword: yup
       .string()
@@ -66,55 +71,76 @@ function SignUp() {
             htmlFor="email"
             className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
-            <input
-              {...register("email")}
-              type="text"
-              id="email"
-              placeholder="Email address"
-              className="bg-transparent text-white outline-none"
-            />
-            {errors.email && (
-              <span className="text-[13px] font-normal text-[#FC4747] ">
-                {errors.email.message}
-              </span>
-            )}
-            <div className="w-full h-[1px] bg-[#5A698F]"></div>
+            <div>
+              <input
+                {...register("email")}
+                type="text"
+                id="email"
+                placeholder="Email address"
+                className="bg-transparent text-white outline-none"
+              />
+              {errors.email && (
+                <span className="text-[13px] font-normal text-[#FC4747] ">
+                  {errors.email.message}
+                </span>
+              )}
+            </div>
+
+            <div
+              className={`w-full h-[2px] ${
+                errors.email ? "bg-[#FC4747] " : "bg-[#5A698F]"
+              } `}
+            ></div>
           </label>
           <label
             htmlFor="password"
             className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
-            <input
-              {...register("password")}
-              type="text"
-              id="password"
-              placeholder="Password"
-              className="bg-transparent text-white outline-none"
-            />
-            {errors.password && (
-              <span className="text-[13px] font-normal text-[#FC4747] ">
-                {errors.password.message}
-              </span>
-            )}
-            <div className="w-full h-[1.5px] bg-[#5A698F]"></div>
+            <div>
+              <input
+                {...register("password")}
+                type="text"
+                id="password"
+                placeholder="Password"
+                className="bg-transparent text-white outline-none"
+              />
+              {errors.password && (
+                <span className="text-[13px] font-normal text-[#FC4747] ">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+
+            <div
+              className={`w-full h-[2px] ${
+                errors.password ? "bg-[#FC4747] " : "bg-[#5A698F]"
+              } `}
+            ></div>
           </label>
           <label
             htmlFor="password"
             className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
-            <input
-              {...register("repeatPassword")}
-              type="text"
-              id="password"
-              placeholder="Repeat Password "
-              className="bg-transparent text-white outline-none"
-            />
-            {errors.repeatPassword && (
-              <span className="text-[13px] font-normal text-[#FC4747] ">
-                {errors.repeatPassword.message}
-              </span>
-            )}
-            <div className="w-full h-[2px] bg-[#5A698F]"></div>
+            <div>
+              <input
+                {...register("repeatPassword")}
+                type="text"
+                id="password"
+                placeholder="Repeat Password "
+                className="bg-transparent text-white outline-none"
+              />
+              {errors.repeatPassword && (
+                <span className="text-[13px] font-normal text-[#FC4747] ">
+                  {errors.repeatPassword.message}
+                </span>
+              )}
+            </div>
+
+            <div
+              className={`w-full h-[2px] ${
+                errors.repeatPassword ? "bg-[#FC4747] " : "bg-[#5A698F]"
+              } `}
+            ></div>
           </label>
           <button className="text-center text-[15px] text-white font-normal rounded-[6px] bg-[#FC4747] w-full py-[15px]">
             Create an account
