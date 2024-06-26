@@ -3,8 +3,8 @@ import movieIcon from "/assets/icon-category-movie.svg";
 import Image from "next/image";
 function SignUp() {
   return (
-    <div className="w-full h-full absolute bg-[#10141E] flex flex-col justify-center items-center gap-[58px] px-[24px]">
-      <div className="">
+    <div className="w-full h-full absolute bg-[#10141E] flex flex-col lg:justify-center  items-center  gap-[58px] px-[24px]">
+      <div className="mt-[48px] sm:mt-[88px] lg:mt-0">
         <svg
           className=""
           xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@ function SignUp() {
           />
         </svg>
       </div>
-      <div className=" w-full lg:h-[418px] sm:h-[373px]  rounded-[20px] bg-[var(--Semi-Dark-Blue,_#161D2F)] flex flex-col p-6 gap-10">
+      <div className=" w-full sm:w-[400px]  rounded-[20px] bg-[var(--Semi-Dark-Blue,_#161D2F)] flex flex-col p-6 gap-10">
         <h1 className="text-[#FFF] text-[32px] font-normal tracking-[-0.5px]">
           Sign Up
         </h1>
