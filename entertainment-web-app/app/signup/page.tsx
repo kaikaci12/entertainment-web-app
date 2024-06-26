@@ -1,7 +1,21 @@
 import React from "react";
 import movieIcon from "/assets/icon-category-movie.svg";
 import Image from "next/image";
+import { useForm, SubmitHandler } from "react-hook-form";
+type Inputs = {
+  email: string;
+  password: string;
+  repeatPassword: string;
+};
 function SignUp() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  console.log(errors);
   return (
     <div className="w-full h-full absolute bg-[#10141E] flex flex-col lg:justify-center  items-center  gap-[58px] px-[24px]">
       <div className="mt-[48px] sm:mt-[88px] lg:mt-0">
@@ -29,9 +43,10 @@ function SignUp() {
             className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
             <input
+              {...register("email")}
               type="text"
               id="email"
-              placeholder="Email address "
+              placeholder="Email address"
               className="bg-transparent text-white outline-none"
             />
             <div className="w-full h-[1px] bg-[#5A698F]"></div>
@@ -41,6 +56,7 @@ function SignUp() {
             className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
             <input
+              {...register("password")}
               type="text"
               id="password"
               placeholder="Password "
@@ -53,6 +69,7 @@ function SignUp() {
             className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
             <input
+              {...register("repeatPassword")}
               type="text"
               id="password"
               placeholder="Repeat Password "
