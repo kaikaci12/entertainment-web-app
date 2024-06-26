@@ -1,19 +1,39 @@
+"use client";
 import React from "react";
 import movieIcon from "/assets/icon-category-movie.svg";
 import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
-type Inputs = {
-  email: string;
-  password: string;
-  repeatPassword: string;
-};
+import { Span } from "next/dist/trace";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 function SignUp() {
+  type Inputs = {
+    email: string;
+    password: string;
+    repeatPassword: string;
+  };
+  const schema = yup.object({
+    email: yup.string().required("Can't be blank"),
+    password: yup.string().required("Can't be blank"),
+    repeatPassword: yup
+      .string()
+      .required("Can't be blank")
+      .test(
+        "check correctly repeated password",
+        "passwords dont match",
+        (value) => value === password
+      ),
+  });
   const {
+    watch,
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+  });
+  const password: string = watch("password");
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
   console.log(errors);
   return (
@@ -37,7 +57,11 @@ function SignUp() {
         <h1 className="text-[#FFF] text-[32px] font-normal tracking-[-0.5px]">
           Sign Up
         </h1>
-        <form action="" className="flex flex-col gap-[24px] ">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          action=""
+          className="flex flex-col gap-[24px] "
+        >
           <label
             htmlFor="email"
             className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
@@ -49,6 +73,11 @@ function SignUp() {
               placeholder="Email address"
               className="bg-transparent text-white outline-none"
             />
+            {errors.email && (
+              <span className="text-[13px] font-normal text-[#FC4747] ">
+                {errors.email.message}
+              </span>
+            )}
             <div className="w-full h-[1px] bg-[#5A698F]"></div>
           </label>
           <label
@@ -59,9 +88,14 @@ function SignUp() {
               {...register("password")}
               type="text"
               id="password"
-              placeholder="Password "
+              placeholder="Password"
               className="bg-transparent text-white outline-none"
             />
+            {errors.password && (
+              <span className="text-[13px] font-normal text-[#FC4747] ">
+                {errors.password.message}
+              </span>
+            )}
             <div className="w-full h-[1.5px] bg-[#5A698F]"></div>
           </label>
           <label
@@ -75,6 +109,11 @@ function SignUp() {
               placeholder="Repeat Password "
               className="bg-transparent text-white outline-none"
             />
+            {errors.repeatPassword && (
+              <span className="text-[13px] font-normal text-[#FC4747] ">
+                {errors.repeatPassword.message}
+              </span>
+            )}
             <div className="w-full h-[2px] bg-[#5A698F]"></div>
           </label>
           <button className="text-center text-[15px] text-white font-normal rounded-[6px] bg-[#FC4747] w-full py-[15px]">
