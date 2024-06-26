@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import movieIcon from "/assets/icon-category-movie.svg";
-import Image from "next/image";
+import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Span } from "next/dist/trace";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -69,7 +68,7 @@ function SignUp() {
         >
           <label
             htmlFor="email"
-            className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
+            className="text-[#FFF] opacity-50 group   text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
             <div>
               <input
@@ -77,7 +76,7 @@ function SignUp() {
                 type="text"
                 id="email"
                 placeholder="Email address"
-                className="bg-transparent text-white outline-none"
+                className="bg-transparent text-white outline-none "
               />
               {errors.email && (
                 <span className="text-[13px] font-normal text-[#FC4747] ">
@@ -89,12 +88,12 @@ function SignUp() {
             <div
               className={`w-full h-[2px] ${
                 errors.email ? "bg-[#FC4747] " : "bg-[#5A698F]"
-              } `}
+              } group-hover:bg-white  bg-opacity-100 `}
             ></div>
           </label>
           <label
             htmlFor="password"
-            className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
+            className="text-[#FFF] opacity-50 group  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
             <div>
               <input
@@ -114,12 +113,12 @@ function SignUp() {
             <div
               className={`w-full h-[2px] ${
                 errors.password ? "bg-[#FC4747] " : "bg-[#5A698F]"
-              } `}
+              }  group-hover:bg-white `}
             ></div>
           </label>
           <label
             htmlFor="password"
-            className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
+            className="text-[#FFF] opacity-50 group  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
             <div>
               <input
@@ -139,10 +138,10 @@ function SignUp() {
             <div
               className={`w-full h-[2px] ${
                 errors.repeatPassword ? "bg-[#FC4747] " : "bg-[#5A698F]"
-              } `}
+              } group-hover:bg-white `}
             ></div>
           </label>
-          <button className="text-center text-[15px] text-white font-normal rounded-[6px] bg-[#FC4747] w-full py-[15px]">
+          <button className="text-center hover:bg-white hover:text-black duration-200 text-[15px] text-white font-normal rounded-[6px] bg-[#FC4747] w-full py-[15px]">
             Create an account
           </button>
         </form>
@@ -150,7 +149,11 @@ function SignUp() {
           <span className="text-[#FFF] text-[15px] font-normal">
             Already have an account?
           </span>
-          <span className=" text-[15px] font-normal text-[#FC4747]">Login</span>
+          <Link href="/login">
+            <span className=" text-[15px] font-normal text-[#FC4747]">
+              Login
+            </span>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-
+import Link from "next/link";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 function Login() {
@@ -56,7 +56,7 @@ function Login() {
         >
           <label
             htmlFor="email"
-            className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
+            className="text-[#FFF] opacity-50 group   text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
             <div>
               <input
@@ -64,7 +64,7 @@ function Login() {
                 type="text"
                 id="email"
                 placeholder="Email address"
-                className="bg-transparent text-white outline-none"
+                className="bg-transparent text-white outline-none "
               />
               {errors.email && (
                 <span className="text-[13px] font-normal text-[#FC4747] ">
@@ -76,12 +76,12 @@ function Login() {
             <div
               className={`w-full h-[2px] ${
                 errors.email ? "bg-[#FC4747] " : "bg-[#5A698F]"
-              } `}
+              } group-hover:bg-white  bg-opacity-100 `}
             ></div>
           </label>
           <label
             htmlFor="password"
-            className="text-[#FFF] opacity-50  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
+            className="text-[#FFF] opacity-50 group  text-[15px] not-italic font-normal leading-[normal] flex flex-col gap-[18px]"
           >
             <div>
               <input
@@ -101,11 +101,11 @@ function Login() {
             <div
               className={`w-full h-[2px] ${
                 errors.password ? "bg-[#FC4747] " : "bg-[#5A698F]"
-              } `}
+              }  group-hover:bg-white `}
             ></div>
           </label>
 
-          <button className="text-center text-[15px] text-white font-normal rounded-[6px] bg-[#FC4747] w-full py-[15px]">
+          <button className="text-center text-[15px] hover:bg-white hover:text-black text-white font-normal rounded-[6px] bg-[#FC4747] w-full py-[15px]">
             Login to your account
           </button>
         </form>
@@ -113,9 +113,11 @@ function Login() {
           <span className="text-[#FFF] text-[15px] font-normal">
             Don't have an account?
           </span>
-          <span className=" text-[15px] font-normal text-[#FC4747]">
-            Sign Up
-          </span>
+          <Link href="/signup">
+            <span className=" text-[15px] font-normal text-[#FC4747]">
+              Sign Up
+            </span>
+          </Link>
         </div>
       </div>
     </div>
