@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="w-full h-full absolute bg-[#10141E] py-[]">
-      <header className="sm:h-[72px] h-[56px] bg-[#161D2F] sm:rounded-[10px] flex justify-between items-center px-[16px]">
+    <div className="w-full h-full fixed  bg-[#10141E] sm:p-[25px] lg:py-[32px]">
+      <header className="sm:h-[72px] w-full h-[56px] bg-[#161D2F] sm:rounded-[10px] lg:rounded-[20px] flex justify-between items-center px-[16px]  lg:h-full  lg:w-[96px] lg:flex-col lg:py-[32px] lg:ju">
         <svg
           className=""
           xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ export default function Home() {
             fill="#FC4747"
           />
         </svg>
-        <nav className="flex gap-[20px] sm:gap-[40px]">
+        <nav className="flex gap-[20px] sm:gap-[40px] items-center lg:flex-col">
           <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M8 0H1C.4 0 0 .4 0 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1V1c0-.6-.4-1-1-1Zm0 11H1c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1v-7c0-.6-.4-1-1-1ZM19 0h-7c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1V1c0-.6-.4-1-1-1Zm0 11h-7c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1v-7c0-.6-.4-1-1-1Z"
@@ -46,7 +46,7 @@ export default function Home() {
         <img
           alt="avatar"
           src="/assets/image-avatar.png"
-          className="w-[24px] h-[24px] rounded-full border-2 border-white"
+          className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] rounded-full border-2 border-white"
         />
       </header>
       <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
