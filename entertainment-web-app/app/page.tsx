@@ -2,7 +2,7 @@
 import Image from "next/image";
 import data from "../data.json";
 import { useEffect, useState } from "react";
-
+import { TMovie } from "./types";
 export default function Home() {
   const [filteredMovies, setFilteredMovies] = useState(data);
   const [seriesActive, setSeriesActive] = useState(false);
@@ -11,7 +11,9 @@ export default function Home() {
   const [homeActive, setHomeActive] = useState(true);
   const trendingData = data.filter((movie) => movie.isTrending);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const filterMoviesByCategory = (category: any) => {
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResults, setSearchResults] = useState<TMovie[]>([]);
+  const filterMoviesByCategory = (category: string) => {
     setFilteredMovies(data.filter((movie) => movie.category === category));
   };
 
@@ -24,7 +26,7 @@ export default function Home() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  function handleThumbnailSize(movie: any) {
+  function handleThumbnailSize(movie: TMovie) {
     if (windowWidth <= 640) {
       return movie.thumbnail.regular.small;
     }
@@ -40,6 +42,12 @@ export default function Home() {
     if (homeActive) return "Recommended for you";
     if (seriesActive) return "TV Series";
   }
+  useEffect(() => {
+    const results = data.filter((value) =>
+      value.title.toLowerCase().includes(searchValue.toLowerCase().trim())
+    );
+    setSearchResults(results);
+  }, [searchValue]);
   return (
     <div className="  bg-[#10141E]  lg:gap-[30px] lg:flex   sm:p-[25px] lg:py-[32px] ">
       <header className="sm:h-[72px] w-full h-[56px] bg-[#161D2F] sm:rounded-[10px] lg:rounded-[20px] flex justify-between items-center px-[16px]  lg:h-screen  lg:w-[96px] lg:flex-col lg:py-[32px] lg:ju">
@@ -146,6 +154,7 @@ export default function Home() {
             />
           </svg>
           <input
+            onChange={(e) => setSearchValue(e.target.value)}
             type="search"
             className="bg-transparent text-[#FFF] text-[24px] font-normal opacity-50 w-full outline-none"
             placeholder="Search for movies or TV series"
@@ -179,7 +188,7 @@ export default function Home() {
                         width="32"
                         height="32"
                         viewBox="0 0 32 32"
-                        fill="#10141E"
+                        fill={`${movie.isBookmarked ? "#fff" : "10141E"}`}
                       >
                         <circle
                           opacity="0.500647"
@@ -257,7 +266,7 @@ export default function Home() {
                         width="32"
                         height="32"
                         viewBox="0 0 32 32"
-                        fill="#10141E"
+                        fill={`${movie.isBookmarked ? "#fff" : "#10141E"}`}
                       >
                         <circle
                           opacity="0.500647"
