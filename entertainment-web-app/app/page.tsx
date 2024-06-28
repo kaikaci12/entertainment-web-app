@@ -3,6 +3,7 @@ import Image from "next/image";
 import data from "../data.json";
 import { useEffect, useState } from "react";
 import { TMovie } from "./types";
+
 export default function Home() {
   const [filteredMovies, setFilteredMovies] = useState(data);
   const [seriesActive, setSeriesActive] = useState(false);
@@ -171,7 +172,7 @@ export default function Home() {
               {trendingData.map((movie, index) => {
                 return (
                   <div
-                    className="w-[40%]   h-[140px] md:w-[470px] md:h-[230px] rounded-[8px] flex flex-col gap-[4px] p-[16px] justify-end"
+                    className="w-[40%]  group  h-[140px] md:w-[470px] md:h-[230px] rounded-[8px] flex flex-col gap-[4px] p-[16px] justify-end"
                     key={index}
                     style={{
                       backgroundImage: `url(${
@@ -249,18 +250,29 @@ export default function Home() {
 
         <section className="flex flex-col gap-[32px]">
           <h2 className="text-[#FFF] text-[32px] font-normal tracking-[-0.5px]">
-            {handleTitle()}
+            {searchValue === "" ? (
+              handleTitle()
+            ) : (
+              <h2 className="text-[#FFF] text-[32px] font-normal tracking-[-0.5px]">
+                Found {searchResults.length} results for "{searchValue}"
+              </h2>
+            )}
           </h2>
-          <div className="flex flex-wrap gap-[15px] sm:gap-[30px] lg:gap-[40px]">
+          <div className="flex flex-wrap gap-[15px] sm:gap-[30px]  lg:gap-[40px]">
             {searchValue === ""
               ? filteredMovies.map((movie, index) => {
                   return (
-                    <div key={index} className="flex flex-col gap-2">
+                    <div
+                      key={index}
+                      className="flex flex-col gap-2 cursor-pointer group"
+                    >
                       <div
                         style={{
                           backgroundImage: `url(${handleThumbnailSize(movie)})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
                         }}
-                        className="w-[164px] p-[16px] h-[110px] rounded-[8px] sm:w-[220px] sm:h-[140px] lg:w-[280px] lg:h-[174px]"
+                        className="w-[164px]  p-[16px] h-[110px] rounded-[8px] sm:w-[220px] sm:h-[140px] lg:w-[280px] lg:h-[174px]"
                       >
                         <div className="w-full h-full flex justify-end">
                           <svg
@@ -319,6 +331,22 @@ export default function Home() {
                       <h2 className="text-[#FFF] text-[15px] font-normal">
                         {movie.title}
                       </h2>
+                      <div className="hidden group-hover:flex bg-opacity-50 absolute  justify-center ">
+                        <div className="w-[117px] absolute h-[48px] rounded-[28.5px] bg-opacity-25 bg-white flex p-4 justify-between   items-center">
+                          <span className="text-white  text-[18px]">Play</span>
+                          <svg
+                            width="30"
+                            height="30"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M15 0C6.713 0 0 6.713 0 15c0 8.288 6.713 15 15 15 8.288 0 15-6.712 15-15 0-8.287-6.712-15-15-15Zm-3 21V8l9 6.5-9 6.5Z"
+                              fill="#fff"
+                              className="z-[999]"
+                            />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                   );
                 })
@@ -328,6 +356,8 @@ export default function Home() {
                       <div
                         style={{
                           backgroundImage: `url(${handleThumbnailSize(movie)})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
                         }}
                         className="w-[164px] p-[16px] h-[110px] rounded-[8px] sm:w-[220px] sm:h-[140px] lg:w-[280px] lg:h-[174px]"
                       >
