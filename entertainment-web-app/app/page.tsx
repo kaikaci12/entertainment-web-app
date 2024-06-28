@@ -264,7 +264,7 @@ export default function Home() {
                   return (
                     <div
                       key={index}
-                      className="flex flex-col gap-2 cursor-pointer group"
+                      className=" flex flex-col gap-2 cursor-pointer "
                     >
                       <div
                         style={{
@@ -272,8 +272,27 @@ export default function Home() {
                           backgroundRepeat: "no-repeat",
                           backgroundSize: "cover",
                         }}
-                        className="w-[164px]  p-[16px] h-[110px] rounded-[8px] sm:w-[220px] sm:h-[140px] lg:w-[280px] lg:h-[174px]"
+                        className="movie-container w-[164px] group  p-[16px] h-[110px] rounded-[8px] sm:w-[220px] sm:h-[140px] lg:w-[280px] lg:h-[174px]"
                       >
+                        <div className="w-full h-full flex justify-center items-center">
+                          <div className="w-[117px] hidden    group-hover:flex group-hover:duration-300 absolute h-[48px] rounded-[28.5px] bg-opacity-25 bg-white  p-4 justify-between   items-center">
+                            <span className="text-white  text-[18px]">
+                              Play
+                            </span>
+                            <svg
+                              width="30"
+                              height="30"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M15 0C6.713 0 0 6.713 0 15c0 8.288 6.713 15 15 15 8.288 0 15-6.712 15-15 0-8.287-6.712-15-15-15Zm-3 21V8l9 6.5-9 6.5Z"
+                                fill="#fff"
+                                className="z-[999]"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+
                         <div className="w-full h-full flex justify-end">
                           <svg
                             className=""
@@ -331,22 +350,6 @@ export default function Home() {
                       <h2 className="text-[#FFF] text-[15px] font-normal">
                         {movie.title}
                       </h2>
-                      <div className="hidden group-hover:flex bg-opacity-50 absolute  justify-center ">
-                        <div className="w-[117px] absolute h-[48px] rounded-[28.5px] bg-opacity-25 bg-white flex p-4 justify-between   items-center">
-                          <span className="text-white  text-[18px]">Play</span>
-                          <svg
-                            width="30"
-                            height="30"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M15 0C6.713 0 0 6.713 0 15c0 8.288 6.713 15 15 15 8.288 0 15-6.712 15-15 0-8.287-6.712-15-15-15Zm-3 21V8l9 6.5-9 6.5Z"
-                              fill="#fff"
-                              className="z-[999]"
-                            />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
                   );
                 })
