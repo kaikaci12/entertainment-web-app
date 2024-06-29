@@ -5,8 +5,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Span } from "next/dist/trace";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 function SignUp() {
+  const router = useRouter();
   type Inputs = {
     email: string;
     password: string;
@@ -38,8 +41,16 @@ function SignUp() {
     resolver: yupResolver(schema),
   });
   const password: string = watch("password");
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-  console.log(errors);
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    localStorage.setItem(
+      "authDetails",
+      JSON.stringify({ email: data.email, password: data.password })
+    );
+    alert("SignUP successfull");
+    router.push("/login");
+  };
+
   return (
     <div className="w-full h-full absolute bg-[#10141E] flex flex-col lg:justify-center  items-center  gap-[58px] px-[24px]">
       <div className="mt-[48px] sm:mt-[88px] lg:mt-0">

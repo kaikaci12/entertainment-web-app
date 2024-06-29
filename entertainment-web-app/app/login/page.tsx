@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useRouter } from "next/navigation";
 function Login() {
   type Inputs = {
     email: string;
@@ -26,8 +27,19 @@ function Login() {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const router = useRouter();
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const storedData = JSON.parse(localStorage.getItem("authDetails") || "{}");
+    if (
+      storedData.email === data.email &&
+      storedData.password === data.password
+    ) {
+      alert("Sign In Successful!");
+      router.push("/dashboard");
+    } else {
+      alert("Invalid credentials");
+    }
+  };
   console.log(errors);
   return (
     <div className="w-full h-full absolute bg-[#10141E] flex flex-col lg:justify-center  items-center  gap-[58px] px-[24px]">
