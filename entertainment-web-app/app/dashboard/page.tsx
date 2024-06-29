@@ -6,6 +6,7 @@ import { TMovie } from "../types";
 import NextTopLoader from "nextjs-toploader";
 import { useRouter } from "next/navigation";
 import BookMarked from "./bookMarked";
+import LogOut from "./LogOut";
 export default function Dashboard() {
   const [filteredMovies, setFilteredMovies] = useState(data);
   const [seriesActive, setSeriesActive] = useState(false);
@@ -14,6 +15,7 @@ export default function Dashboard() {
   const [homeActive, setHomeActive] = useState(true);
   const trendingData = data.filter((movie) => movie.isTrending);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [logOut, setLogOut] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<TMovie[]>([]);
   const filterMoviesByCategory = (category: string) => {
@@ -151,10 +153,12 @@ export default function Dashboard() {
           </svg>
         </nav>
         <img
+          onClick={() => setLogOut(!logOut)}
           alt="avatar"
           src="/assets/image-avatar.png"
           className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] rounded-full border-2 border-white"
         />
+        {logOut && <LogOut />}
       </header>
       <main className="p-[16px] flex flex-col gap-[24px] ">
         <div className="flex gap-[24px] mt-[26px] sm:mt-[34px] lg:mt-[45px]">
