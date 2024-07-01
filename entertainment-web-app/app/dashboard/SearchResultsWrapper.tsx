@@ -3,8 +3,6 @@ import { TMovie } from "../types";
 type Props = {
   searchResults: TMovie[];
   handleThumbnailSize: Function;
-  setFilmData: Function;
-  setFilteredMovies: Function;
 };
 export default function SearchResultsWrapper({
   searchResults,
@@ -41,38 +39,7 @@ export default function SearchResultsWrapper({
                 </div>
               </div>
 
-              <div
-                onClick={() => {
-                  console.log("sdasdasd");
-                  const currentMovie = searchResults.find(
-                    (item, i) => i === index
-                  );
-
-                  setFilmData((prevMovies: TMovie[]) =>
-                    prevMovies.map((movie) => {
-                      if (movie.title === currentMovie?.title) {
-                        return {
-                          ...movie,
-                          isBookmarked: !movie.isBookmarked,
-                        };
-                      }
-                      return movie;
-                    })
-                  );
-                  setFilteredMovies((prevMovies: TMovie[]) =>
-                    prevMovies.map((movie) => {
-                      if (movie.title === currentMovie?.title) {
-                        return {
-                          ...movie,
-                          isBookmarked: !movie.isBookmarked,
-                        };
-                      }
-                      return movie;
-                    })
-                  );
-                }}
-                className=" absolute top-[10px] right-[10px]"
-              >
+              <div className=" absolute top-[10px] right-[10px]">
                 <svg
                   className=""
                   xmlns="http://www.w3.org/2000/svg"

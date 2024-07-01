@@ -5,6 +5,7 @@ import Link from "next/link";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
+
 function Login() {
   type Inputs = {
     email: string;
@@ -40,7 +41,7 @@ function Login() {
       alert("Invalid credentials");
     }
   };
-  console.log(errors);
+
   return (
     <div className="w-full h-full absolute bg-[#10141E] flex flex-col lg:justify-center  items-center  gap-[58px] px-[24px]">
       <div className="mt-[48px] sm:mt-[88px] lg:mt-0">

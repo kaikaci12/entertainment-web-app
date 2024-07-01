@@ -11,6 +11,7 @@ export default function BookMarked({ filmData, handleThumbnailSize }: Props) {
   const bookMarkedSeries = filmData.filter(
     (movie) => movie.isBookmarked && movie.category === "TV Series"
   );
+
   return (
     <div className="flex flex-col gap-[25px] lg:gap-[40px] w-full h-full  bg-fixed bg-[#10141E] z-[999]">
       <div className="flex flex-col gap-[20px] lg:gap-[32px]">
@@ -141,7 +142,7 @@ export default function BookMarked({ filmData, handleThumbnailSize }: Props) {
                     </div>
                   </div>
 
-                  <div>
+                  <div className=" absolute top-[10px] right-[10px]">
                     <svg
                       className=""
                       xmlns="http://www.w3.org/2000/svg"
