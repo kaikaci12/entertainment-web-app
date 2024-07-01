@@ -52,8 +52,3 @@
     transform: rotate(1turn);
   }
 }
-.trending-section {
-  width: 100%; /* Or a specific width like 800px */
-  overflow-x: scroll;
-  flex: 1; /* This can help fill remaining space if needed */
-}
