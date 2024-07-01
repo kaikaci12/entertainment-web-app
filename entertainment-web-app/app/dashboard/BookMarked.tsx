@@ -1,21 +1,18 @@
 import React from "react";
 import { TMovie } from "../types";
 type Props = {
-  filteredMovies: TMovie[];
+  filmData: TMovie[];
   handleThumbnailSize: Function;
 };
-export default function BookMarked({
-  filteredMovies,
-  handleThumbnailSize,
-}: Props) {
-  const bookMarkedMovies = filteredMovies.filter(
+export default function BookMarked({ filmData, handleThumbnailSize }: Props) {
+  const bookMarkedMovies = filmData.filter(
     (movie) => movie.isBookmarked && movie.category === "Movie"
   );
-  const bookMarkedSeries = filteredMovies.filter(
+  const bookMarkedSeries = filmData.filter(
     (movie) => movie.isBookmarked && movie.category === "TV Series"
   );
   return (
-    <div className="flex flex-col gap-[25px] lg:gap-[40px] bg-white z-[999]">
+    <div className="flex flex-col gap-[25px] lg:gap-[40px] w-full h-full  bg-fixed bg-[#10141E] z-[999]">
       <div className="flex flex-col gap-[20px] lg:gap-[32px]">
         <h2 className="text-[#FFF] text-[32px] font-normal tracking-[-0.5px]">
           Bookmarked Movies
@@ -49,7 +46,7 @@ export default function BookMarked({
                     </div>
                   </div>
 
-                  <div>
+                  <div className="absolute top-[10px] right-[10px] z-[999]">
                     <svg
                       className=""
                       xmlns="http://www.w3.org/2000/svg"
