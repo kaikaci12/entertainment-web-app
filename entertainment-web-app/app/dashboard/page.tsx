@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { TMovie } from "../types";
 import NextTopLoader from "nextjs-toploader";
 import { useRouter } from "next/navigation";
-import BookMarked from "./BookMarked";
-import LogOut from "./LogOut";
-import SearchResultsWrapper from "./SearchResultsWrapper";
+import BookMarked from "../components/BookMarked";
+import LogOut from "../components/LogOut";
+import SearchResultsWrapper from "../components/SearchResultsWrapper";
+
 export default function Dashboard() {
   const [filmData, setFilmData] = useState<TMovie[]>(data);
   const [filteredMovies, setFilteredMovies] = useState<TMovie[]>(data);
@@ -18,6 +19,7 @@ export default function Dashboard() {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [logOut, setLogOut] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   const [searchResults, setSearchResults] = useState<TMovie[]>([]);
@@ -29,10 +31,11 @@ export default function Dashboard() {
   const router = useRouter();
   const isUserLoggedIn = useState(false);
   useEffect(() => {
-    if (!localStorage.getItem("authDetails") && isUserLoggedIn) {
+    const storage = localStorage.getItem("authDetails");
+    if (!storage && userLoggedIn) {
       router.push("/login");
     }
-  });
+  }, [localStorage, userLoggedIn]);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -171,13 +174,18 @@ export default function Dashboard() {
             />
           </svg>
         </nav>
-        <img
-          onClick={() => setLogOut(!logOut)}
-          alt="avatar"
-          src="/assets/image-avatar.png"
-          className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] rounded-full border-2 border-white"
-        />
-        {logOut && <LogOut />}
+        <div
+          onClick={() => setUserLoggedIn(true)}
+          className="flex flex-col gap-5"
+        >
+          <img
+            onClick={() => setLogOut(!logOut)}
+            alt="avatar"
+            src="/assets/image-avatar.png"
+            className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] rounded-full border-2 border-white"
+          />
+          {logOut && <LogOut />}
+        </div>
       </header>
       <main className="p-[16px] flex flex-col relative h-full gap-[24px] ">
         <div className="flex gap-[24px] mt-[26px] sm:mt-[34px] lg:mt-[45px]">

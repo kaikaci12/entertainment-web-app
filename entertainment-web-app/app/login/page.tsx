@@ -1,25 +1,29 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
 
+const schema = yup.object({
+  email: yup
+    .string()
+    .required("Can't be blank")
+    .test("test email regex", "invalid email", (value) => {
+      return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+    }),
+  password: yup.string().required("Can't be blank"),
+});
 function Login() {
+  const router = useRouter();
+  const [providers, setProviders] = useState(null);
+  const [isUserLoggedIn, setUserLoggedIn] = useState(false);
   type Inputs = {
     email: string;
     password: string;
   };
-  const schema = yup.object({
-    email: yup
-      .string()
-      .required("Can't be blank")
-      .test("test email regex", "invalid email", (value) => {
-        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
-      }),
-    password: yup.string().required("Can't be blank"),
-  });
+
   const {
     watch,
     register,
@@ -28,9 +32,10 @@ function Login() {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
-  const router = useRouter();
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const storedData = JSON.parse(localStorage.getItem("authDetails") || "{}");
+
     if (
       storedData.email === data.email &&
       storedData.password === data.password
@@ -38,7 +43,7 @@ function Login() {
       alert("Sign In Successful!");
       router.push("/dashboard");
     } else {
-      alert("Invalid credentials");
+      alert("Invalid Email or Password");
     }
   };
 

@@ -23,3 +23,7 @@ export type TMovie = {
   isBookmarked: boolean;
   isTrending: boolean;
 };
+export interface TAuth {
+  email: string;
+  password: string;
+}
