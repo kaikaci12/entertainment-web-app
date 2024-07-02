@@ -29,7 +29,7 @@ export default function Dashboard() {
   };
   const trendingData = filmData.filter((movie) => movie.isTrending);
   const router = useRouter();
-  const isUserLoggedIn = useState(false);
+
   useEffect(() => {
     const storage = localStorage.getItem("authDetails");
     if (!storage && userLoggedIn) {
@@ -176,15 +176,21 @@ export default function Dashboard() {
         </nav>
         <div
           onClick={() => setUserLoggedIn(true)}
-          className="flex flex-col gap-5"
+          className="flex flex-col gap-5 w-full items-start"
         >
           <img
             onClick={() => setLogOut(!logOut)}
             alt="avatar"
             src="/assets/image-avatar.png"
-            className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] rounded-full border-2 border-white"
+            className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] cursor-pointer rounded-full border-2 border-white"
           />
-          {logOut && <LogOut />}
+          <div
+            className={`ease-linear absolute left-0${
+              logOut ? " translate-x-20" : ""
+            }  duration-500 z-[999]`}
+          >
+            {logOut && <LogOut />}
+          </div>
         </div>
       </header>
       <main className="p-[16px] flex flex-col relative h-full gap-[24px] ">
