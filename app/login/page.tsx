@@ -129,7 +129,7 @@ function Login() {
         </form>
         <div className="w-full flex gap-[8px] justify-center">
           <span className="text-[#FFF] text-[15px] font-normal">
-            Don't have an account?
+            Do not have an account?
           </span>
           <Link href="/signup">
             <span className=" text-[15px] font-normal text-[#FC4747]">

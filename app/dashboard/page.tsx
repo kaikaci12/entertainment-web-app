@@ -17,7 +17,7 @@ export default function Dashboard() {
   const [bookmarkedActive, setBookMarkActive] = useState(false);
   const [homeActive, setHomeActive] = useState(true);
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState<number | null>(null);
   const [logOut, setLogOut] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -32,29 +32,26 @@ export default function Dashboard() {
 
   useEffect(() => {
     const storage = localStorage.getItem("authDetails");
-    if (!storage && userLoggedIn) {
+    if (!storage) {
       router.push("/login");
+    } else {
+      setUserLoggedIn(true);
     }
-  }, [localStorage, userLoggedIn]);
+  }, [router]);
+
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
+    setWindowWidth(window.innerWidth);
+    const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   function handleThumbnailSize(movie: TMovie) {
-    if (windowWidth <= 640) {
-      return movie.thumbnail.regular.small;
-    }
-    if (windowWidth >= 640 && windowWidth <= 1024) {
+    if (!windowWidth) return movie.thumbnail.regular.medium;
+    if (windowWidth <= 640) return movie.thumbnail.regular.small;
+    if (windowWidth > 640 && windowWidth <= 1024)
       return movie.thumbnail.regular.medium;
-    } else {
-      return movie.thumbnail.regular.large;
-    }
+    return movie.thumbnail.regular.large;
   }
   function handleTitle() {
     if (moviesActive) return "Movies";
@@ -80,9 +77,8 @@ export default function Dashboard() {
         }
       })
     );
-  }, [searchValue]);
+  }, [searchValue, filmData, homeActive, seriesActive, moviesActive]);
   console.log(searchResults);
-
   return (
     <div className="  bg-[#10141E]  w-full h-full lg:gap-[30px]  lg:flex   sm:p-[25px] lg:py-[32px] ">
       <header className="sm:h-[72px]  w-full h-[56px] bg-[#161D2F] sm:rounded-[10px] lg:rounded-[20px] flex justify-between items-center px-[16px]  lg:h-screen  lg:w-[96px] lg:flex-col lg:py-[32px] ">
@@ -178,7 +174,9 @@ export default function Dashboard() {
           onClick={() => setUserLoggedIn(true)}
           className="flex flex-col gap-5 w-full items-start"
         >
-          <img
+          <Image
+            width={25}
+            height={25}
             onClick={() => setLogOut(!logOut)}
             alt="avatar"
             src="/assets/image-avatar.png"
@@ -232,7 +230,7 @@ export default function Dashboard() {
                         className="movie-container lg:w-[470px] w-[320px] group  h-[140px] md:w-[470px] md:h-[230px] rounded-[8px] flex flex-col items-center gap-[4px] p-5 "
                         style={{
                           backgroundImage: `url(${
-                            windowWidth >= 1024
+                            (windowWidth ?? 0) >= 1024
                               ? movie.thumbnail.trending?.large
                               : movie.thumbnail.trending?.small
                           })`,
@@ -357,7 +355,7 @@ export default function Dashboard() {
             </h2>
           ) : (
             <h2 className="text-[#FFF] text-[32px] font-normal tracking-[-0.5px]">
-              Found {searchResults.length} results for "{searchValue}"
+              Found {searchResults.length} results for {`"${searchValue}"`}
             </h2>
           )}
 
